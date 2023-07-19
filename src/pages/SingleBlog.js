@@ -12,7 +12,7 @@ const SingleBlog = () => {
 
   const handleInsertNewComment = async (e) => {
     e.preventDefault();
-    const result = await fetch("https://vit-betatest.onrender.com/postcomment", {
+    const result = await fetch("https://vitbeta-api.onrender.com/postcomment", {
       method: "POST",
       body: JSON.stringify([{ newComment }, id]),
       credentials: "include",
@@ -44,7 +44,7 @@ const SingleBlog = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const result = await fetch("https://vit-betatest.onrender.com/getsinglepost", {
+      const result = await fetch("https://vitbeta-api.onrender.com/getsinglepost", {
         method: "POST",
         body: JSON.stringify(id),
         headers: { "Content-type": "application/json" },
@@ -60,7 +60,7 @@ const SingleBlog = () => {
       <div className="articles">
         <div className="article">
           <img
-            src={"https://vit-betatest.onrender.com/" + postsData.picture}
+            src={"https://vitbeta-api.onrender.com/" + postsData.picture}
             alt="picture"
           />
           <h2>{postsData.title}</h2>

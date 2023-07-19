@@ -7,7 +7,7 @@ const Blog = () => {
 
 useEffect(() => {
   const getData = async () => {
-    const result = await fetch('https://vit-betatest.onrender.com/getblogposts')
+    const result = await fetch('https://vitbeta-api.onrender.com/getblogposts')
     .catch(err => console.log(err))
     result.json().then((post) => setPostsData(post.reverse()))    
   }
@@ -25,7 +25,7 @@ if(postsData.length === 0){
      { postsData.map(article => 
       <div className="articles" key={article._id}>
         <div className="article">
-        <img src={"https://vit-betatest.onrender.com/" + article.picture} alt="picture" />
+        <img src={"https://vitbeta-api.onrender.com/" + article.picture} alt="picture" />
           <h2>{article.title}</h2>
           <article>{article.text}</article>
           <Link to={'/singleblog/' + article._id} >vstoupit do diskuze:</Link>

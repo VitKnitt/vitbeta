@@ -18,7 +18,7 @@ const Paintings = () => {
 
   useEffect(() => {
     const showData = async () => {
-      const response = await fetch("https://vit-betatest.onrender.com/getpaintings");
+      const response = await fetch("https://vitbeta-api.onrender.com/getpaintings");
       response
         .json()
         .then((response) =>
@@ -40,7 +40,7 @@ const Paintings = () => {
 
 
   const handleDownloaad = async () => {
-    const response = await fetch('https://vit-betatest.onrender.com/downloadpaintings'
+    const response = await fetch('https://vitbeta-api.onrender.com/downloadpaintings'
     ,{
       method: 'GET',
      credentials: "include",
@@ -49,7 +49,7 @@ const Paintings = () => {
     .catch(err => console.log(err))
 
     if(response.status === 200){     
-   window.open("https://vit-betatest.onrender.com/downloadpaintings")
+   window.open("https://vitbeta-api.onrender.com/downloadpaintings")
      console.log('file downloaded')
     }
 
@@ -114,7 +114,7 @@ const Paintings = () => {
             <div>
               <Link to={painting._id}>
                 <img
-                  src={"https://vit-betatest.onrender.com/" + painting.cover}
+                  src={"https://vitbeta-api.onrender.com/" + painting.cover}
                   alt="cover"
                 />
               </Link>

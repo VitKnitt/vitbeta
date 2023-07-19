@@ -35,7 +35,7 @@ const Register = () => {
         }, 4000)
       );
 
-    const result = await fetch("https://vit-betatest.onrender.com/register", {
+    const result = await fetch("https://vitbeta-api.onrender.com/register", {
       method: "POST",
       body: JSON.stringify({ name, password, email }),
       headers: { "Content-type": "application/json" },

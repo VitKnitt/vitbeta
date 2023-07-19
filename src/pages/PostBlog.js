@@ -10,7 +10,7 @@ const PostBlog = () => {
   useEffect(() => {
 
     const checkrole = async () => {
-      const result = await fetch('https://vit-betatest.onrender.com/checkrole',{
+      const result = await fetch('https://vitbeta-api.onrender.com/checkrole',{
         method: "POST",
         credentials: "include"
       })
@@ -29,7 +29,7 @@ const PostBlog = () => {
     data.set("file", files[0]);
     e.preventDefault();
 
-    const response = await fetch("https://vit-betatest.onrender.com/postblog", {
+    const response = await fetch("https://vitbeta-api.onrender.com/postblog", {
       method: "POST",
       body: data,
       credentials: "include",

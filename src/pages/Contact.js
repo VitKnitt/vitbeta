@@ -13,7 +13,7 @@ const Contact = () => {
     const date = new Date().getFullYear().toString()
     console.log(date===year)
     if(date === year){      
-        const result = await fetch("https://vit-betatest.onrender.com/contact",{
+        const result = await fetch("https://vitbeta-api.onrender.com/contact",{
         method: 'POST',
         body: JSON.stringify({email, subject, message}),
         headers: {'Content-type':'application/json'}        

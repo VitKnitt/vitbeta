@@ -9,7 +9,7 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     try {
-      const result = await fetch("https://vit-betatest.onrender.com/forgotpassword", {
+      const result = await fetch("https://vitbeta-api.onrender.com/forgotpassword", {
         method: "POST",
         body: JSON.stringify({ email }),
         headers: { "Content-type": "application/json" },

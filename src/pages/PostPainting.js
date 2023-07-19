@@ -15,7 +15,7 @@ const PostPainting = () => {
   useEffect(() => {
 
     const checkrole = async () => {
-      const result = await fetch('https://vit-betatest.onrender.com/checkrole',{
+      const result = await fetch('https://vitbeta-api.onrender.com/checkrole',{
         method: "POST",
         credentials: "include"
       })
@@ -41,7 +41,7 @@ const PostPainting = () => {
     data.set("additionalInfo", additionalInfo);
 
     try{
-      const response = await fetch('https://vit-betatest.onrender.com/postpainting',{
+      const response = await fetch('https://vitbeta-api.onrender.com/postpainting',{
           method: "POST",
           body: data,
           credentials:"include"

@@ -11,7 +11,7 @@ const Login = () => {
 
   const login = async (e) => {
     e.preventDefault();
-    const response = await fetch("https://vit-betatest.onrender.com/login", {
+    const response = await fetch("https://vitbeta-api.onrender.com/login", {
       method: "POST",
       body: JSON.stringify({ name, password }),
       headers: { "Content-type": "application/json" },

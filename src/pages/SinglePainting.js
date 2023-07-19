@@ -8,7 +8,7 @@ const SinglePainting = () => {
 
   useEffect(() => {
     const getSinglePaintingInfo = async () => {
-      const result = await fetch("https://vit-betatest.onrender.com/getsinglepainting", {
+      const result = await fetch("https://vitbeta-api.onrender.com/getsinglepainting", {
         method: "POST",
         body: JSON.stringify(id),
         headers: { "Content-type": "application/json" },
@@ -41,7 +41,7 @@ const SinglePainting = () => {
           <img
             className="bigcover"
             alt="bigCover"
-            src={"https://vit-betatest.onrender.com/" + bigCover}
+            src={"https://vitbeta-api.onrender.com/" + bigCover}
           />
           <div className="singlepainting-additional">
             <p>{additionalInfo && additionalInfo}</p>
@@ -50,7 +50,7 @@ const SinglePainting = () => {
                 <img
                   className="additionalcover"
                   alt="additionalCover"
-                  src={"https://vit-betatest.onrender.com/" + additionalCover}
+                  src={"https://vitbeta-api.onrender.com/" + additionalCover}
                 />
               )}
             </div>

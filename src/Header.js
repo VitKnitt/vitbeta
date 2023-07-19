@@ -12,7 +12,7 @@ const Header = () => {
  
 useEffect(() => { 
    const isLooged = async () => {
-    const result = await fetch("https://vit-betatest.onrender.com/islloged", {
+    const result = await fetch("https://vitbeta-api.onrender.com/islloged", {
       method: "POST",
       credentials: "include",
     });
@@ -28,7 +28,7 @@ useEffect(() => {
   
 
   const handleLogOut = async () => {
-    const result = await fetch("https://vit-betatest.onrender.com/logout", {
+    const result = await fetch("https://vitbeta-api.onrender.com/logout", {
       method: "POST",
       credentials: "include",
     });
