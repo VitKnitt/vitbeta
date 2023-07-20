@@ -1,9 +1,23 @@
-
+import { useEffect, useState } from "react";
 import pozvanka from '../images/pozvanka.png'
 
 const IndexPage = () => {
 
-    
+    useEffect(() => {
+      const showInfo = async () => {
+        const response = await fetch('https://vitbeta-api.onrender.com/'
+        ,{
+          method: 'GET',
+         credentials: "include",
+        }
+        )
+        .catch(err => console.log(err))
+
+        response.json().then(result => console.log(result +" show me cookies"))
+        
+      }
+      showInfo()
+    },[])
 
   return (
     <div className="indexPage">
