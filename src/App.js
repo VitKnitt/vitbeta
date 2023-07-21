@@ -35,9 +35,11 @@ function App() {
           <Route path="/postpainting" element={<PostPainting />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/personaldata" element={<PersonalData />} />
-        </Route>
           <Route path="/passwordreset/:id/:token" element={<PasswordReset />} />
-        
+        </Route>        
+      </Routes>
+      <Routes>
+
       </Routes>
     </UserContextProvider>
   );
