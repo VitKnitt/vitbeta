@@ -38,9 +38,6 @@ function App() {
           <Route path="/passwordreset/:id/:token" element={<PasswordReset />} />
         </Route>        
       </Routes>
-      <Routes>
-
-      </Routes>
     </UserContextProvider>
   );
 }
