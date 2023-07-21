@@ -27,7 +27,7 @@ const PasswordReset = () => {
     }
 
     try {
-      const result = await fetch("https://vitbeta-api.onrender.com/passwordreset", {
+      const result = await fetch("https://vitbeta-api.onrender.com/passwordreset/${id}/${token}", {
         method: "POST",
         body: JSON.stringify({ newPassword, id, token }),
         headers: { "Content-type": "application/json" },
