@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = 'https://www.edgetale.com/'
+const initialState = 'https://vitbeta.onrender.com/'
 //'https://vitbeta.onrender.com/'
 //'http://localhost:3500/'
 //'https://www.edgetale.com/'
