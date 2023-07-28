@@ -22,7 +22,14 @@ const Paintings = () => {
 
   useEffect(() => {
     const showData = async () => {
-      const response = await fetch(URL + "getpaintings");
+      const response = await fetch(URL + "getpaintings",{
+        method: 'GET',
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }
+  
+      });
       response
         .json()
         .then((response) =>
