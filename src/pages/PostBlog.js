@@ -1,26 +1,28 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUrl } from "../features/url/urlSlice";
 
 const PostBlog = () => {
+  const URL = useSelector(selectUrl);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [files, setFiles] = useState("");
   const [neautorizovany, setNeautorizovany] = useState(false);
 
   useEffect(() => {
-
     const checkrole = async () => {
-      const result = await fetch('https://vitbeta-api.onrender.com/checkrole',{
+      const result = await fetch(URL + "checkrole", {
         method: "POST",
-        credentials: "include"
-      })
-      if(result.status !== 200){
-        console.log("neautorizovany vstup")
-        setNeautorizovany(true)
+        credentials: "include",
+      });
+      if (result.status !== 200) {
+        console.log("neautorizovany vstup");
+        setNeautorizovany(true);
       }
-    }
-    checkrole()
-  },[])
+    };
+    checkrole();
+  }, []);
 
   const handlePost = async (e) => {
     const data = new FormData();
@@ -29,24 +31,21 @@ const PostBlog = () => {
     data.set("file", files[0]);
     e.preventDefault();
 
-    const response = await fetch("https://vitbeta-api.onrender.com/postblog", {
+    const response = await fetch(URL + "postblog", {
       method: "POST",
       body: data,
       credentials: "include",
     }).catch((err) => console.log(err));
   };
 
-  if(neautorizovany){
-    return <Navigate to='/' />
+  if (neautorizovany) {
+    return <Navigate to="/" />;
   }
 
   return (
     <div className="postblog">
       <h1>Post new blog</h1>
-      <form
-        onSubmit={handlePost}
-        className="postblogform"
-      >
+      <form onSubmit={handlePost} className="postblogform">
         <h2>Nadpis</h2>
         <input
           type="text"

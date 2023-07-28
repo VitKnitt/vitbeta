@@ -3,8 +3,11 @@ import { Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
+import { selectUrl } from "../features/url/urlSlice";
 
 const Register = () => {
+  const URL = useSelector(selectUrl)
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +38,7 @@ const Register = () => {
         }, 4000)
       );
 
-    const result = await fetch("https://vitbeta-api.onrender.com/register", {
+    const result = await fetch(URL+"register", {
       method: "POST",
       body: JSON.stringify({ name, password, email }),
       headers: { "Content-type": "application/json" },

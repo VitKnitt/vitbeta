@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
+import { selectUrl } from "../features/url/urlSlice";
 
 const PasswordReset = () => {
+  const URL = useSelector(selectUrl)
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [noMatch, setNoMatch] = useState(false);
@@ -27,7 +30,7 @@ const PasswordReset = () => {
     }
 
     try {
-      const result = await fetch(`https://vitbeta-api.onrender.com/passwordreset/${id}/${token}`, {
+      const result = await fetch(`${URL}passwordreset/${id}/${token}`, {
         method: "POST",
         body: JSON.stringify({ newPassword, id, token }),
         headers: { "Content-type": "application/json" },

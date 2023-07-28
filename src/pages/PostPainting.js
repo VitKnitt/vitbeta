@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUrl } from "../features/url/urlSlice";
 
 const PostPainting = () => {
+  const URL = useSelector(selectUrl);
   const [title, setTitle] = useState("");
   const [body, setbody] = useState("");
-  const [serie, setSerie] = useState("")
+  const [serie, setSerie] = useState("");
   const [year, setYear] = useState("");
   const [smallFiles, setSmallFiles] = useState("");
   const [bigFiles, setBigFiles] = useState("");
@@ -13,51 +16,48 @@ const PostPainting = () => {
   const [neautorizovany, setNeautorizovany] = useState(false);
 
   useEffect(() => {
-
     const checkrole = async () => {
-      const result = await fetch('https://vitbeta-api.onrender.com/checkrole',{
+      const result = await fetch(URL + "checkrole", {
         method: "POST",
-        credentials: "include"
-      })
-      if(result.status !== 200){
-        console.log("neautorizovany vstup")
-        setNeautorizovany(true)
+        credentials: "include",
+      });
+      if (result.status !== 200) {
+        console.log("neautorizovany vstup");
+        setNeautorizovany(true);
       }
-    }
-    checkrole()
-  },[])
-
+    };
+    checkrole();
+  }, []);
 
   const postPainting = async (e) => {
     e.preventDefault();
     const data = new FormData();
     data.set("title", title);
     data.set("body", body);
-    data.set("serie",serie);
+    data.set("serie", serie);
     data.set("year", year);
     data.append("file", smallFiles[0]);
     data.append("file", bigFiles[0]);
     data.append("file", additionalFiles[0]);
     data.set("additionalInfo", additionalInfo);
 
-    try{
-      const response = await fetch('https://vitbeta-api.onrender.com/postpainting',{
-          method: "POST",
-          body: data,
-          credentials:"include"
-      })
-      if(response.ok){
-       console.log("ok")
+    try {
+      const response = await fetch(URL + "postpainting", {
+        method: "POST",
+        body: data,
+        credentials: "include",
+      });
+      if (response.ok) {
+        console.log("ok");
       }
-    }
-    catch(err){
-      console.log('fetch failed')
+    } catch (err) {
+      console.log("fetch failed");
     }
   };
 
-if(neautorizovany){
-  return <Navigate to='/' />
-}
+  if (neautorizovany) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="postpainting">
@@ -78,10 +78,10 @@ if(neautorizovany){
         />
         <h2>serie:</h2>
         <input
-        type="text"
-        placeholder="serie"
-        value={serie}
-        onChange={(e) => setSerie(e.target.value)}
+          type="text"
+          placeholder="serie"
+          value={serie}
+          onChange={(e) => setSerie(e.target.value)}
         />
         <h2>year:</h2>
         <input
@@ -92,11 +92,22 @@ if(neautorizovany){
           onChange={(e) => setYear(e.target.value)}
         />
         <p>small file:</p>
-        <input type="file" required onChange={(e) => setSmallFiles(e.target.files)} />
+        <input
+          type="file"
+          required
+          onChange={(e) => setSmallFiles(e.target.files)}
+        />
         <p>big file:</p>
-        <input type="file" required onChange={(e) => setBigFiles(e.target.files)} />
+        <input
+          type="file"
+          required
+          onChange={(e) => setBigFiles(e.target.files)}
+        />
         <p>additional file:</p>
-        <input type="file" onChange={(e) => setAdditionalFiles(e.target.files)} />
+        <input
+          type="file"
+          onChange={(e) => setAdditionalFiles(e.target.files)}
+        />
         <textarea
           placeholder="additional info"
           value={additionalInfo}

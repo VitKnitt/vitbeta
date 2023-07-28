@@ -1,41 +1,54 @@
 import { Link } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "./UserContext";
-import logo from './images/logo.png'
+import logo from "./images/logo.png";
+import { selectUrl } from './features/url/urlSlice'
+import { useSelector,useDispatch } from "react-redux";
+import { saveUsersName } from "./features/users/usersSlice"; 
+
 
 const Header = () => {
+  const URL = useSelector(selectUrl);
+  const userName = useSelector(state => state.users.name)
+  const dispatch = useDispatch()
   const { userInfo, setUserInfo } = useContext(UserContext);
+
+
   const [activeHmaburger, setActiveHamburger] = useState(false);
   const [activeNavMenu, setactiveNavMenu] = useState(false);
   const [userRole, setUseRole] = useState("");
 
- 
-useEffect(() => { 
-   const isLooged = async () => {
-    const result = await fetch("https://vitbeta-api.onrender.com/islloged", {
-      method: "POST",
-      credentials: "include",
-    });
-    if (result.ok) {        
-      result.json().then(result => (setUserInfo(result.name),
-      setUseRole(result.role)))
-    } else {
-      console.log("unauthorized");
-    }
-  };
-  isLooged()
-},[])  
-  
+  /* zadat jmeno zaregistrovaneho, vlozit do useEffect */
+ // dispatch(saveUsersName("jozko"))
+ // console.log("users " + userName)
+
+  useEffect(() => {
+    const isLooged = async () => {
+      const result = await fetch(URL + "islogged", {
+        method: "POST",
+        credentials: "include",
+      });
+      if (result.ok) {
+        result
+          .json()
+         // .then(result => (dispatch(saveUsersName("jozko")), setUseRole(result.role))
+            .then(result => (setUserInfo(result.name), setUseRole(result.role))
+          );
+      } else {
+        console.log("unauthorized");
+      }
+    };
+    isLooged();
+  }, []);
 
   const handleLogOut = async () => {
-    const result = await fetch("https://vitbeta-api.onrender.com/logout", {
+    const result = await fetch(URL + "logout", {
       method: "POST",
       credentials: "include",
     });
-    if (result.ok) {    
-    
-     setUserInfo("");      
-    console.log("logged out")
+    if (result.ok) {
+      setUserInfo("");
+      console.log("logged out");
     } else {
       console.log("error :(");
     }
@@ -74,21 +87,20 @@ useEffect(() => {
                 kontakt
               </Link>
             </li>
-            { userRole === "admin" ? 
-            (
+            {userRole === "admin" ? (
               <>
-            <li className="nav-item">
-              <Link to="/postpainting" className="nav-link">
-                post-painting
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/PostBlog" className="nav-link">
-                post-blog
-              </Link>
-            </li>            
-            </>)
-             : null}
+                <li className="nav-item">
+                  <Link to="/postpainting" className="nav-link">
+                    post-painting
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/PostBlog" className="nav-link">
+                    post-blog
+                  </Link>
+                </li>
+              </>
+            ) : null}
           </div>
           <div className="login">
             {!userInfo ? (
@@ -102,7 +114,9 @@ useEffect(() => {
               </>
             ) : (
               <div>
-                <div className="login-name" style={{ color: "#f4b41a" }}>{userInfo}</div>
+                <div className="login-name" style={{ color: "#f4b41a" }}>
+                  {userInfo}
+                </div>
                 <button onClick={handleLogOut}>logout</button>
               </div>
             )}

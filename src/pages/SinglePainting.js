@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUrl } from "../features/url/urlSlice";
+import loading from "../images/loading.gif"
 
 const SinglePainting = () => {
+  const URL = useSelector(selectUrl)
   const [painting, setPainting] = useState("");
   const id = useParams("");
   const navigate = useNavigate();
 
   useEffect(() => {
     const getSinglePaintingInfo = async () => {
-      const result = await fetch("https://vitbeta-api.onrender.com/getsinglepainting", {
+      const result = await fetch(URL+"getsinglepainting", {
         method: "POST",
         body: JSON.stringify(id),
         headers: { "Content-type": "application/json" },
@@ -41,7 +45,7 @@ const SinglePainting = () => {
           <img
             className="bigcover"
             alt="bigCover"
-            src={"https://vitbeta-api.onrender.com/" + bigCover}
+            src={URL + bigCover}
           />
           <div className="singlepainting-additional">
             <p>{additionalInfo && additionalInfo}</p>
@@ -50,15 +54,15 @@ const SinglePainting = () => {
                 <img
                   className="additionalcover"
                   alt="additionalCover"
-                  src={"https://vitbeta-api.onrender.com/" + additionalCover}
+                  src={URL + additionalCover}
                 />
               )}
             </div>
-          </div>
           <button onClick={() => navigate('/paintings')}>zpět</button>
+          </div>
         </div>
       ) : (
-        <div>loading...</div>
+        <div className="loading"><img src={loading} alt="Loading..." />Loading...</div>
       )}
     </>
   );

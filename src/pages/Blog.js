@@ -1,37 +1,52 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUrl } from "../features/url/urlSlice";
+import loading from "../images/loading.gif";
 
 const Blog = () => {
+  const [postsData, setPostsData] = useState([]);
+  const singleBlock = useNavigate();
+  const URL = useSelector(selectUrl);
 
-  const [postsData,setPostsData] = useState([])
+  useEffect(() => {
+    const getData = async () => {
+      const result = await fetch(URL + "getblogposts").catch((err) =>
+        console.log(err)
+      );
+      result.json().then((post) => setPostsData(post.reverse()));
+    };
+    getData();
+  }, []);
 
-useEffect(() => {
-  const getData = async () => {
-    const result = await fetch('https://vitbeta-api.onrender.com/getblogposts')
-    .catch(err => console.log(err))
-    result.json().then((post) => setPostsData(post.reverse()))    
+  const navigateToSingleBlog = (road) => {
+    singleBlock("/singleblog/" + road);
+  };
+
+  if (postsData.length === 0) {
+    return (
+      <div className="loading">
+        <img src={loading} alt="Loading..." />
+        Loading...
+      </div>
+    );
   }
-getData()
-},[])
-
-if(postsData.length === 0){
-  return <div>Loading...</div>
-}
 
   return (
-
     <div className="blog">
       <h1>Blog</h1>
-     { postsData.map(article => 
-      <div className="articles" key={article._id}>
-        <div className="article">
-        <img src={"https://vitbeta-api.onrender.com/" + article.picture} alt="picture" />
-          <h2>{article.title}</h2>
-          <article>{article.text}</article>
-          <Link to={'/singleblog/' + article._id} >vstoupit do diskuze:</Link>
+      {postsData.map((article) => (
+        <div className="articles" key={article._id}>
+          <div className="article">
+            <img src={URL + article.picture} alt="picture" />
+            <h2>{article.title}</h2>
+            <article>{article.text}</article>
+            <button className="navigateButton" onClick={() => navigateToSingleBlog(article._id)}>
+              diskuze:
+            </button>
+          </div>
         </div>
-      </div>
-      )}
+      ))}
     </div>
   );
 };

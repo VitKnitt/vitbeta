@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectUrl } from "../features/url/urlSlice";
 
 const ForgotPassword = () => {
+  const URL = useSelector(selectUrl);
   const [email, setEmail] = useState("");
   const [emailSent, setEmailSent] = useState(false);
   const [noMatch, setNoMatch] = useState(false);
@@ -9,7 +12,7 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     try {
-      const result = await fetch("https://vitbeta-api.onrender.com/forgotpassword", {
+      const result = await fetch(URL + "forgotpassword", {
         method: "POST",
         body: JSON.stringify({ email }),
         headers: { "Content-type": "application/json" },

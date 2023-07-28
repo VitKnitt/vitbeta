@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUrl } from "../features/url/urlSlice";
+import loading from "../images/loading.gif"
 
 const Paintings = () => {
+  const URL = useSelector(selectUrl);
   const [paintData, setPaintData] = useState("");
   const [filter, setFilter] = useState("");
   const [filterYear, setFilterYear] = useState(null);
@@ -18,7 +22,7 @@ const Paintings = () => {
 
   useEffect(() => {
     const showData = async () => {
-      const response = await fetch("https://vitbeta-api.onrender.com/getpaintings");
+      const response = await fetch(URL + "getpaintings");
       response
         .json()
         .then((response) =>
@@ -38,22 +42,17 @@ const Paintings = () => {
     }
   }, [filterYear]);
 
-
   const handleDownloaad = async () => {
-    const response = await fetch('https://vitbeta-api.onrender.com/downloadpaintings'
-    ,{
-      method: 'GET',
-     credentials: "include",
-    }
-    )
-    .catch(err => console.log(err))
+    const response = await fetch(URL + "downloadpaintings", {
+      method: "GET",
+      credentials: "include",
+    }).catch((err) => console.log(err));
 
-    if(response.status === 200){     
-   window.open("https://vitbeta-api.onrender.com/downloadpaintings")
-     console.log('file downloaded')
+    if (response.status === 200) {
+      window.open(URL + "downloadpaintings");
+      console.log("file downloaded");
     }
-
-  }
+  };
 
   return (
     <div className="paintins-page">
@@ -78,7 +77,10 @@ const Paintings = () => {
         </div>
         <div className="filtrDate">
           dle data:
-          <button className="arrowDown" onClick={() => handleSortDown(paintData)}>
+          <button
+            className="arrowDown"
+            onClick={() => handleSortDown(paintData)}
+          >
             ⇓
           </button>
           <button className="arrowUp" onClick={() => handleSortUp(paintData)}>
@@ -90,10 +92,10 @@ const Paintings = () => {
       <div className="download">
         <p>stáhnout galerii:</p>
         <button onClick={handleDownloaad}>Download</button>
-      <p>*pro registrované</p>
+        <p>*pro registrované</p>
       </div>
       {!paintData ? (
-        <div>{"Loading..."}</div>
+        <div className="loading"><img src={loading} alt="Loading..." />Loading...</div>
       ) : (
         paintData.map((painting) => (
           <div className="paintings" key={painting._id}>
@@ -113,10 +115,7 @@ const Paintings = () => {
             </div>
             <div>
               <Link to={painting._id}>
-                <img
-                  src={"https://vitbeta-api.onrender.com/" + painting.cover}
-                  alt="cover"
-                />
+                <img src={URL + painting.cover} alt="cover" />
               </Link>
             </div>
           </div>

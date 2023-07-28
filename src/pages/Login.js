@@ -1,8 +1,11 @@
 import { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
+import { useSelector } from "react-redux";
+import { selectUrl } from "../features/url/urlSlice";
 
 const Login = () => {
+  const URL = useSelector(selectUrl);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [loged, setLoged] = useState(false);
@@ -11,7 +14,7 @@ const Login = () => {
 
   const login = async (e) => {
     e.preventDefault();
-    const response = await fetch("https://vitbeta-api.onrender.com/login", {
+    const response = await fetch(URL + "login", {
       method: "POST",
       body: JSON.stringify({ name, password }),
       headers: { "Content-type": "application/json" },
@@ -19,11 +22,7 @@ const Login = () => {
     });
     if (response.status === 200) {
       console.log("ok");
-      response
-        .json()
-        .then((userinfo) =>
-        setUserInfo( userinfo.name)
-        );      
+      response.json().then((userinfo) => setUserInfo(userinfo.name));
       setLoged(true);
     } else {
       setWrongCredentials(true);
@@ -65,7 +64,7 @@ const Login = () => {
         <button type="submit">Log in</button>
         <Link to="/forgotpassword">zapomenuté heslo</Link>
       </form>
-        {wrongCredentials && <p>špatné heslo nebo jméno</p>}
+      {wrongCredentials && <p>špatné heslo nebo jméno</p>}
     </div>
   );
 };

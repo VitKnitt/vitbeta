@@ -54,6 +54,17 @@ iframe{
   border-radius: 5px;
 }
 
+.loading{
+display: flex;
+flex-direction: column;
+align-items: center;
+padding-top: 10%;
+}
+
+.loading img{
+  width: 150px;
+}
+
 /*---------Header---------*/
 
 header {
@@ -198,6 +209,11 @@ div.footer-content{
 footer img {
   max-height: 50px;
   background-color: #f4b41a;
+}
+
+footer img:hover {
+  background-color: white;
+  transition: 0.3s ease;
 }
 
 .personaldata-link {
@@ -522,6 +538,10 @@ div.passwordresetmsg > p {
 
 /*---------Blog---------*/
 
+div.blog h1{
+  text-align: center;
+}
+
 div.articles {
   display: flex;
   justify-content: flex-end;
@@ -597,8 +617,8 @@ div.comment-text {
     margin: 0;
   }
 
-  button.backbutton{
-    max-width: 90px;
+  button.backbutton, button.navigateButton{
+    max-width: 100px;
   }
 
 }
