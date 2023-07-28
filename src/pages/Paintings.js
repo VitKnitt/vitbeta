@@ -22,7 +22,7 @@ const Paintings = () => {
 
   useEffect(() => {
     const showData = async () => {
-      const response = await fetch("https://vitbeta.onrender.com/getpaintings");
+      const response = await fetch(URL + "getpaintings");
       response
         .json()
         .then((response) =>
