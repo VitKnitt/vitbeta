@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = 'https://vitbeta.onrender.com/'
+const initialState = 'https://vitbeta-api.onrender.com/'
 //'https://vitbeta.onrender.com/'
 //'http://localhost:3500/'
 //'https://www.edgetale.com/'
+//'https://vitbeta-api.onrender.com/'
 
 
 const urlSlice = createSlice({
