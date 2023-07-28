@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = 'https://www.edgetale.com/'
-//'http://localhost:3500/'
+const initialState = 'http://localhost:3500/'
+//'https://www.edgetale.com/'
 
 
 const urlSlice = createSlice({
