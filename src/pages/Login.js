@@ -26,7 +26,7 @@ const Login = () => {
     });
     if (response.status === 200) {
       console.log("ok");
-      response.json().then((userinfo) => (setUserInfo(userinfo.name), Cookies.set('token',userinfo.token,{ expires : 30})));
+      response.json().then((userinfo) => (setUserInfo(userinfo.name), Cookies.set('token',userinfo.token + " jelen tady tak",{ expires : 30})));
       setLoged(true);
       //Cookies.set('token',cookieToken + " userjelenVitektoken")
     } else {
