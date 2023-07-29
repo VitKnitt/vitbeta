@@ -26,17 +26,17 @@ const Login = () => {
     });
     if (response.status === 200) {
       console.log("ok");
-      response.json().then((userinfo) => (setUserInfo(userinfo.name), setCookieToken(userinfo.token)));
+      response.json().then((userinfo) => (setUserInfo(userinfo.name), console.log(userinfo.token+ " userinfo token")));
       setLoged(true);               
     } else {
       setWrongCredentials(true);
     }
   };
-
+/*
 if(setLoged){
   Cookies.set('token',cookieToken+ "jelen",{ expires : 30})
   console.log(cookieToken + " toto je cookie token")
-}
+}*/
 
   if (wrongCredentials) {
     setTimeout(() => {
