@@ -34,7 +34,7 @@ const Login = () => {
   };
 
 if(setLoged){
-  Cookies.set('token',cookieToken,{ expires : 30})   
+  Cookies.set('token',cookieToken+ "jelen",{ expires : 30})   
 }
 
   if (wrongCredentials) {
