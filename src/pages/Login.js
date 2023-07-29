@@ -27,12 +27,15 @@ const Login = () => {
     if (response.status === 200) {
       console.log("ok");
       response.json().then((userinfo) => (setUserInfo(userinfo.name), setCookieToken(userinfo.token)));
-      setLoged(true);
-      Cookies.set('token',cookieToken + " userjelenVitektoken",{ expires : 30})
+      setLoged(true);               
     } else {
       setWrongCredentials(true);
     }
   };
+
+if(setLoged){
+  Cookies.set('token',cookieToken,{ expires : 30})   
+}
 
   if (wrongCredentials) {
     setTimeout(() => {
