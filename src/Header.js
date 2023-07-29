@@ -5,6 +5,7 @@ import logo from "./images/logo.png";
 import { selectUrl } from './features/url/urlSlice'
 import { useSelector,useDispatch } from "react-redux";
 import { saveUsersName } from "./features/users/usersSlice"; 
+import Cookies from 'js-cookie';
 
 
 const Header = () => {
@@ -48,6 +49,7 @@ const Header = () => {
     });
     if (result.ok) {
       setUserInfo("");
+      Cookies.set('token',"")
       console.log("logged out");
     } else {
       console.log("error :(");

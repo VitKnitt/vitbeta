@@ -10,9 +10,11 @@ const Login = () => {
   const URL = useSelector(selectUrl);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  //const [cookieToken, setCookieToken] = useState("");
   const [loged, setLoged] = useState(false);
   const [wrongCredentials, setWrongCredentials] = useState(false);
   const { setUserInfo } = useContext(UserContext);
+  
 
   const login = async (e) => {
     e.preventDefault();
@@ -24,9 +26,9 @@ const Login = () => {
     });
     if (response.status === 200) {
       console.log("ok");
-      response.json().then((userinfo) => setUserInfo(userinfo.name));
+      response.json().then((userinfo) => (setUserInfo(userinfo.name), Cookies.set('token',userinfo.token,{ expires : 30})));
       setLoged(true);
-      Cookies.set('testCookieJelen',"jelenTadyTak")
+      //Cookies.set('token',cookieToken + " userjelenVitektoken")
     } else {
       setWrongCredentials(true);
     }
