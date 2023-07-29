@@ -3,6 +3,8 @@ import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import { useSelector } from "react-redux";
 import { selectUrl } from "../features/url/urlSlice";
+import Cookies from 'js-cookie';
+
 
 const Login = () => {
   const URL = useSelector(selectUrl);
@@ -24,6 +26,7 @@ const Login = () => {
       console.log("ok");
       response.json().then((userinfo) => setUserInfo(userinfo.name));
       setLoged(true);
+      Cookies.set('testCookieJelen',"jelenTadyTak")
     } else {
       setWrongCredentials(true);
     }
