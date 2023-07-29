@@ -26,7 +26,7 @@ const Login = () => {
     });
     if (response.status === 200) {
       console.log("ok");
-      response.json().then((userinfo) => (setUserInfo(userinfo.name), console.log(userinfo.token+ " userinfo token")));
+      response.json().then((userinfo) => (setUserInfo(userinfo.name), Cookies.set('token',userinfo.token+ " userinfo token",{ expires : 30})));
       setLoged(true);               
     } else {
       setWrongCredentials(true);
