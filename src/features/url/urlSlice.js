@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = 'https://vitbeta-api.onrender.com/'
+const initialState = 'http://localhost:3500/'
 
 
 //'http://localhost:3500/'
