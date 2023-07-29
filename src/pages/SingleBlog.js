@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUrl } from "../features/url/urlSlice";
 import loading from "../images/loading.gif"
+import Cookies from "js-cookie";
 
 const SingleBlog = () => {
   const URL = useSelector(selectUrl)
@@ -16,9 +17,10 @@ const SingleBlog = () => {
 
   const handleInsertNewComment = async (e) => {
     e.preventDefault();
+    const token = Cookies.get('token')
     const result = await fetch(URL+"postcomment", {
       method: "POST",
-      body: JSON.stringify([{ newComment }, id]),
+      body: JSON.stringify([{ newComment }, id, token]),
       credentials: "include",
       headers: { "Content-type": "application/json" },
     }).catch((err) => console.log(err));
