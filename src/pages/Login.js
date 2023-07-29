@@ -34,7 +34,8 @@ const Login = () => {
   };
 
 if(setLoged){
-  Cookies.set('token',cookieToken+ "jelen",{ expires : 30})   
+  Cookies.set('token',cookieToken+ "jelen",{ expires : 30})
+  console.log(cookieToken + " toto je cookie token")
 }
 
   if (wrongCredentials) {
