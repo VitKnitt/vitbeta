@@ -8,7 +8,7 @@ const IndexPage = () => {
       <div className="news">
         <h2>novinky</h2>
         <p>stránky jsou ve zkušebním provozu a mohou padat</p>
-        <iframe
+        {/*<iframe
           width="560"
           height="315"
           src="https://www.youtube.com/embed/RtxFRHTuhHM"
@@ -16,7 +16,7 @@ const IndexPage = () => {
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen
-        ></iframe>
+  ></iframe>*/}
       </div>
       <div className='events'>
         <h2>události</h2>
