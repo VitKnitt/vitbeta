@@ -14,7 +14,7 @@ const Blog = () => {
       const result = await fetch(URL + "getblogposts").catch((err) =>
         console.log(err)
       );
-      if(result.status === 201){
+      if(result.status === 200){
       result.json().then((post) => setPostsData(post.reverse()));
       }
       else{
