@@ -44,8 +44,6 @@ const Register = () => {
       headers: { "Content-type": "application/json" },
     });
     if (result.status === 201) {
-     // result.json().then((userinfo) =>  window.localStorage.setItem("IsLoggedIn", userinfo.name));
-     // setUserInfo(true)
       setSuccess(true);
     } else if (result.status === 409) {
       setDuplicateName(true);

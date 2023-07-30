@@ -6,6 +6,7 @@ import loading from "../images/loading.gif"
 
 const Paintings = () => {
   const URL = useSelector(selectUrl);
+  const token = useSelector(state => state.users.cookie)
   const [paintData, setPaintData] = useState("");
   const [filter, setFilter] = useState("");
   const [filterYear, setFilterYear] = useState(null);
@@ -44,7 +45,9 @@ const Paintings = () => {
 
   const handleDownloaad = async () => {
     const response = await fetch(URL + "downloadpaintings", {
-      method: "GET",
+      method: "POST",
+      body: JSON.stringify({token}),
+      headers: {'Content-type' : 'application/json'},
       credentials: "include",
     }).catch((err) => console.log(err));
 

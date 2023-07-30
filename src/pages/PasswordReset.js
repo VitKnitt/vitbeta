@@ -18,6 +18,7 @@ const PasswordReset = () => {
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
+    
 
     if (newPassword !== confirmNewPassword) {
       setNoMatch(true);

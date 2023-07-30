@@ -14,10 +14,12 @@ const SingleBlog = () => {
   const [regRequired, setregRequired] = useState(false);
   const id = useParams("");
   const history = useNavigate();
+  const getJWT = useSelector(state => state.users.cookie)
 
   const handleInsertNewComment = async (e) => {
     e.preventDefault();
-    const token = Cookies.get('token')
+    //console.log(getJWT + "getJWT from redux")
+    const token = getJWT
     const result = await fetch(URL+"postcomment", {
       method: "POST",
       body: JSON.stringify([{ newComment }, id, token]),

@@ -7,7 +7,6 @@ const IndexPage = () => {
     <div className="indexPage">
       <div className="news">
         <h2>novinky</h2>
-        <p>stránky jsou ve zkušebním provozu a mohou padat</p>
         {/*<iframe
           width="560"
           height="315"

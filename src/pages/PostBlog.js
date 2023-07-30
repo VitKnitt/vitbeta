@@ -5,6 +5,7 @@ import { selectUrl } from "../features/url/urlSlice";
 
 const PostBlog = () => {
   const URL = useSelector(selectUrl);
+  const token = useSelector(state => state.users.cookie)
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [files, setFiles] = useState("");
@@ -14,11 +15,15 @@ const PostBlog = () => {
     const checkrole = async () => {
       const result = await fetch(URL + "checkrole", {
         method: "POST",
+        body: JSON.stringify({token}),
+        headers: { 'Content-type' : 'application/json'},
         credentials: "include",
       });
       if (result.status !== 200) {
         console.log("neautorizovany vstup");
         setNeautorizovany(true);
+      } else{
+        console.log("welcome")
       }
     };
     checkrole();
@@ -29,6 +34,7 @@ const PostBlog = () => {
     data.set("title", title);
     data.set("text", text);
     data.set("file", files[0]);
+    data.set('token',token)
     e.preventDefault();
 
     const response = await fetch(URL + "postblog", {
@@ -36,6 +42,12 @@ const PostBlog = () => {
       body: data,
       credentials: "include",
     }).catch((err) => console.log(err));
+    if(response.status === 200){
+      console.log('new blog added')
+    } else {
+      console.log('internal error')
+    }
+
   };
 
   if (neautorizovany) {
