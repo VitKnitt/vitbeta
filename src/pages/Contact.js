@@ -20,7 +20,7 @@ const Contact = () => {
         method: "POST",
         body: JSON.stringify({ email, subject, message }),
         headers: { "Content-type": "application/json" },
-      });
+      }).catch(err => console.log(err));
       if (result.status === 200) {
         setEmail("");
         setSubject("");

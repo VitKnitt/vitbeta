@@ -14,7 +14,12 @@ const Blog = () => {
       const result = await fetch(URL + "getblogposts").catch((err) =>
         console.log(err)
       );
+      if(result.status === 201){
       result.json().then((post) => setPostsData(post.reverse()));
+      }
+      else{
+        console.log('Internal Server Error')
+      }
     };
     getData();
   }, []);
@@ -41,7 +46,10 @@ const Blog = () => {
             <img src={URL + article.picture} alt="picture" />
             <h2>{article.title}</h2>
             <article>{article.text}</article>
-            <button className="navigateButton" onClick={() => navigateToSingleBlog(article._id)}>
+            <button
+              className="navigateButton"
+              onClick={() => navigateToSingleBlog(article._id)}
+            >
               diskuze:
             </button>
           </div>

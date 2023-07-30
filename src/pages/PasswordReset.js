@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { selectUrl } from "../features/url/urlSlice";
 
 const PasswordReset = () => {
-  const URL = useSelector(selectUrl)
+  const URL = useSelector(selectUrl);
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [noMatch, setNoMatch] = useState(false);
@@ -18,7 +18,6 @@ const PasswordReset = () => {
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
-    
 
     if (newPassword !== confirmNewPassword) {
       setNoMatch(true);
@@ -26,8 +25,8 @@ const PasswordReset = () => {
     }
 
     if (!regexPassword.test(newPassword)) {
-        console.log(`regex ${regexPassword.test(newPassword)}`);
-      return 
+      console.log(`regex ${regexPassword.test(newPassword)}`);
+      return;
     }
 
     try {
@@ -37,28 +36,23 @@ const PasswordReset = () => {
         headers: { "Content-type": "application/json" },
       });
 
-      if(result.status === 401){
+      if (result.status === 401) {
         //token expired
-        setTokenExpired(true)
-        console.log("token expired")
-      }
-
-      if(result.status === 404){
+        setTokenExpired(true);
+        console.log("token expired");
+      } else if (result.status === 404) {
         //user not found
-        console.log("user not found")
-      }
-
-      if(result.status === 200){
+        console.log("user not found");
+      } else if (result.status === 200) {
         //success navigate to login
-        setpasswordChanged(true)
-        console.log("success")
+        setpasswordChanged(true);
+        console.log("success");
+      } else {
+        console.log("internal error");
       }
-
     } catch (err) {
-      console.log(err);
+      console.log("internal error");
     }
-
-
   };
 
   if (noMatch) {
@@ -67,9 +61,8 @@ const PasswordReset = () => {
     }, 4000);
   }
 
-
-  if (passwordChanged){
-  return  <Navigate to="/login" />
+  if (passwordChanged) {
+    return <Navigate to="/login" />;
   }
 
   return (
@@ -79,13 +72,11 @@ const PasswordReset = () => {
         <h2>nové heslo:</h2>
         <p>
           min. délka 6{" "}
-          {!regexPassword.test(newPassword) ? 
-          (
+          {!regexPassword.test(newPassword) ? (
             <FontAwesomeIcon icon={faXmark} style={{ color: "#e0101a" }} />
           ) : (
             <FontAwesomeIcon icon={faCheck} style={{ color: "#143d59" }} />
-          )
-          }
+          )}
         </p>
         <input
           type="password"
@@ -105,8 +96,8 @@ const PasswordReset = () => {
         <button type="submit">potvrdit</button>
       </form>
       <div className="passwordresetmsg">
-      {noMatch && <p>hesla se neshodují</p>}
-      {tokenExpired && <p>platnost vypršela</p>}
+        {noMatch && <p>hesla se neshodují</p>}
+        {tokenExpired && <p>platnost vypršela</p>}
       </div>
     </div>
   );

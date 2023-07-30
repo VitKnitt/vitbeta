@@ -5,7 +5,7 @@ import { selectUrl } from "../features/url/urlSlice";
 
 const PostPainting = () => {
   const URL = useSelector(selectUrl);
-  const token = useSelector(state => state.users.cookie)
+  const token = useSelector((state) => state.users.cookie);
   const [title, setTitle] = useState("");
   const [body, setbody] = useState("");
   const [serie, setSerie] = useState("");
@@ -20,15 +20,15 @@ const PostPainting = () => {
     const checkrole = async () => {
       const result = await fetch(URL + "checkrole", {
         method: "POST",
-        body: JSON.stringify({token}),
-        headers: {'Content-type' : 'application/json'},
+        body: JSON.stringify({ token }),
+        headers: { "Content-type": "application/json" },
         credentials: "include",
       });
       if (result.status !== 200) {
         console.log("neautorizovany vstup");
         setNeautorizovany(true);
-      } else{
-        console.log('welcome')
+      } else {
+        console.log("welcome");
       }
     };
     checkrole();
@@ -45,19 +45,17 @@ const PostPainting = () => {
     data.append("file", bigFiles[0]);
     data.append("file", additionalFiles[0]);
     data.set("additionalInfo", additionalInfo);
-    data.set('token',token)
+    data.set("token", token);
 
-    try {
-      const response = await fetch(URL + "postpainting", {
-        method: "POST",
-        body: data,
-        credentials: "include",
-      });
-      if (response.ok) {
-        console.log("painting added to gallery");
-      }
-    } catch (err) {
-      console.log("fetch failed");
+    const response = await fetch(URL + "postpainting", {
+      method: "POST",
+      body: data,
+      credentials: "include",
+    });
+    if (response.status === 200) {
+      console.log("painting added to gallery");
+    } else {
+      console.log("internal error");
     }
   };
 

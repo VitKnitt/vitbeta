@@ -3,9 +3,8 @@ import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUrl } from "../features/url/urlSlice";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import { saveUsersName } from "../features/users/usersSlice";
-
 
 const Login = () => {
   const URL = useSelector(selectUrl);
@@ -13,9 +12,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loged, setLoged] = useState(false);
   const [wrongCredentials, setWrongCredentials] = useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { setUserInfo } = useContext(UserContext);
-  
 
   const login = async (e) => {
     e.preventDefault();
@@ -27,10 +25,19 @@ const Login = () => {
     });
     if (response.status === 200) {
       console.log("ok");
-      response.json().then((userinfo) => (dispatch(saveUsersName(userinfo.name)), Cookies.set('token',userinfo.token,{ expires : 30})));
-      setLoged(true);               
-    } else {
+      response
+        .json()
+        .then(
+          (userinfo) => (
+            dispatch(saveUsersName(userinfo.name)),
+            Cookies.set("token", userinfo.token, { expires: 30 })
+          )
+        );
+      setLoged(true);
+    } else if (response.status === 400) {
       setWrongCredentials(true);
+    } else {
+      console.log("internal error");
     }
   };
 

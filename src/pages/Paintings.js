@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUrl } from "../features/url/urlSlice";
-import loading from "../images/loading.gif"
+import loading from "../images/loading.gif";
 
 const Paintings = () => {
   const URL = useSelector(selectUrl);
-  const token = useSelector(state => state.users.cookie)
+  const token = useSelector((state) => state.users.cookie);
   const [paintData, setPaintData] = useState("");
   const [filter, setFilter] = useState("");
   const [filterYear, setFilterYear] = useState(null);
@@ -32,7 +32,13 @@ const Paintings = () => {
             : setPaintData(response)
         )
         .catch((err) => console.log(err));
+        if(response.status === 200){
+          console.log("paintings loaded")
+        }else{
+          console.log("internal error")
+        }
     };
+
     showData();
   }, [filter]);
 
@@ -46,14 +52,16 @@ const Paintings = () => {
   const handleDownloaad = async () => {
     const response = await fetch(URL + "downloadpaintings", {
       method: "POST",
-      body: JSON.stringify({token}),
-      headers: {'Content-type' : 'application/json'},
+      body: JSON.stringify({ token }),
+      headers: { "Content-type": "application/json" },
       credentials: "include",
     }).catch((err) => console.log(err));
 
     if (response.status === 200) {
       window.open(URL + "downloadpaintings");
       console.log("file downloaded");
+    }else{
+      console.log('internal error')
     }
   };
 
@@ -98,7 +106,10 @@ const Paintings = () => {
         <p>*pro registrované</p>
       </div>
       {!paintData ? (
-        <div className="loading"><img src={loading} alt="Loading..." />Loading...</div>
+        <div className="loading">
+          <img src={loading} alt="Loading..." />
+          Loading...
+        </div>
       ) : (
         paintData.map((painting) => (
           <div className="paintings" key={painting._id}>

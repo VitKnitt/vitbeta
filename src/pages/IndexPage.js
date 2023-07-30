@@ -1,8 +1,24 @@
-import pozvanka from '../images/pozvanka.png'
+import { useEffect } from "react";
+import pozvanka from "../images/pozvanka.png";
+import { useSelector } from "react-redux";
+import { selectUrl } from "../features/url/urlSlice";
 
 const IndexPage = () => {
+  const URL = useSelector(selectUrl);
 
-    
+  //loading database on background
+  useEffect(() => {
+    const loadDatabase = async () => {
+      const response = await fetch(URL + "getpaintings");
+      if (response.status === 200) {
+        console.log("loaded");
+      } else {
+        console.log("internal error");
+      }
+    };
+    loadDatabase();
+  }, []);
+
   return (
     <div className="indexPage">
       <div className="news">
@@ -17,7 +33,7 @@ const IndexPage = () => {
           allowfullscreen
   ></iframe>*/}
       </div>
-      <div className='events'>
+      <div className="events">
         <h2>události</h2>
         <img src={pozvanka} alt="pozvanka" />
       </div>

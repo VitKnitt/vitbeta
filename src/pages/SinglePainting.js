@@ -17,7 +17,11 @@ const SinglePainting = () => {
         body: JSON.stringify(id),
         headers: { "Content-type": "application/json" },
       });
+      if(result.status === 201){
       result.json().then((data) => setPainting(data));
+    }else{
+      console.log('internal error')
+    }
     };
     getSinglePaintingInfo();
   }, []);

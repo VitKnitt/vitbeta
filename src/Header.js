@@ -2,39 +2,39 @@ import { Link } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "./UserContext";
 import logo from "./images/logo.png";
-import { selectUrl } from './features/url/urlSlice'
-import { useSelector,useDispatch } from "react-redux";
-import { saveUsersName } from "./features/users/usersSlice"; 
-import Cookies from 'js-cookie';
-
+import { selectUrl } from "./features/url/urlSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { saveUsersName } from "./features/users/usersSlice";
+import Cookies from "js-cookie";
 
 const Header = () => {
   const URL = useSelector(selectUrl);
-  const userName = useSelector(state => state.users.name)
-  const token = useSelector(state => state.users.cookie)
-  const dispatch = useDispatch()  
-  
+  const userName = useSelector((state) => state.users.name);
+  const token = useSelector((state) => state.users.cookie);
+  const dispatch = useDispatch();
+
   const [activeHmaburger, setActiveHamburger] = useState(false);
   const [activeNavMenu, setactiveNavMenu] = useState(false);
-  
+
   const [userRole, setUseRole] = useState(""); //userContext
   const { userInfo, setUserInfo } = useContext(UserContext);
 
-
   useEffect(() => {
-    const isLooged = async () => {      
+    const isLooged = async () => {
       const result = await fetch(URL + "islogged", {
         method: "POST",
-        body: JSON.stringify({token}),
+        body: JSON.stringify({ token }),
         headers: { "Content-type": "application/json" },
         credentials: "include",
       });
       if (result.ok) {
         result
           .json()
-          .then(result => (dispatch(saveUsersName(result.name)), setUseRole(result.role))
-         //   .then(result => (setUserInfo(result.name), setUseRole(result.role))
-          );         
+          .then(
+            (result) => (
+              dispatch(saveUsersName(result.name)), setUseRole(result.role)
+            )
+          );
       } else {
         console.log("not logged in");
       }
@@ -43,6 +43,7 @@ const Header = () => {
   }, []);
 
   const handleLogOut = async () => {
+    /*
     const result = await fetch(URL + "logout", {
       method: "POST",
       credentials: "include",
@@ -55,6 +56,10 @@ const Header = () => {
     } else {
       console.log("error :(");
     }
+    */
+    dispatch(saveUsersName(""));
+    Cookies.set("token", "");
+    console.log("logged out");
   };
 
   const showMenu = () => {
