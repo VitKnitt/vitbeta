@@ -32,11 +32,11 @@ const Paintings = () => {
             : setPaintData(response)
         )
         .catch((err) => console.log(err));
-        if(response.status === 200){
-          console.log("paintings loaded")
-        }else{
-          console.log("internal error")
-        }
+      if (response.status === 200) {
+        console.log("paintings loaded");
+      } else {
+        console.log("internal error");
+      }
     };
 
     showData();
@@ -60,8 +60,8 @@ const Paintings = () => {
     if (response.status === 200) {
       window.open(URL + "downloadpaintings");
       console.log("file downloaded");
-    }else{
-      console.log('internal error')
+    } else {
+      console.log("internal error");
     }
   };
 
