@@ -60,6 +60,7 @@ const Header = () => {
     dispatch(saveUsersName(""));
     Cookies.set("token", "");
     console.log("logged out");
+    location.reload()
   };
 
   const showMenu = () => {
