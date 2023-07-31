@@ -1,0 +1,121 @@
+header {
+    background-color: #143d59;
+    border-bottom: #f4b41a 3px solid;
+  }
+  
+  li {
+    list-style: none;
+  }
+  
+  .nav-link {
+    color: #f4b41a;
+    text-decoration: none;
+  }
+  
+  .login {
+    display: flex;
+    flex-direction: column;
+    border: #f4b41a 2px solid;
+    border-radius: 5px;
+    padding: 3px;
+  }
+  
+  .navbar {
+    min-height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+  }
+  
+  .nav-menu {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 18px;
+  }
+  
+  .nav-menu-non {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 18px;
+  }
+  
+  .nav-menu-list {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .nav-link {
+    transition: 0.7s ease;
+  }
+  
+  .nav-link:hover {
+    color: rgb(226, 226, 226);
+  }
+  
+  .nothamburger {
+    display: none;
+    cursor: pointer;
+  }
+  
+  .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #f4b41a;
+  }
+  
+  @media (max-width: 768px) {
+    .nothamburger {
+      display: block;
+    }
+  
+    .hamburger {
+      display: block;
+    }
+  
+    .hamburger .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    .hamburger .bar:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+  
+    .hamburger .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  
+    .nav-menu {
+      position: absolute;
+      left: 7%;
+      top: 20px;
+      gap: 0;
+      flex-direction: row;
+      align-items: flex-start;
+      background-color: #143d59;
+      width: 60%;
+    }
+  
+    .nav-menu-list {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+    }
+  
+    .nav-tiem {
+      margin: 16px 0;
+    }
+  
+    .nav-menu-non {
+      left: -100%;
+      display: none;
+    }
+  }

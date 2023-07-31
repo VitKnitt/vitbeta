@@ -1,0 +1,33 @@
+
+div.indexPage{
+    display: flex;
+    flex-direction: column;
+    }
+    
+    div.news, div.events{
+      margin: 20px;  
+      height: 350px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    div.news iframe{
+     max-width: 60%;
+    }
+    
+    div.events img{
+      border: #143d59 5px solid;
+      height: 100%;
+      width: auto;
+    }
+    
+    @media (max-width: 768px) {
+      div.news iframe{
+        max-width: 100%;
+       }
+    
+       div.news{
+        height: 300px;
+       }
+    }

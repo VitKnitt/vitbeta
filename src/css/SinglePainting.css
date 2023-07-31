@@ -1,0 +1,41 @@
+.singlepainting {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .singlepainting button {
+    max-width: 85px;
+  }
+  
+  .singlepainting-description {
+    margin: 10px;
+    max-width: 50%;
+  }
+  
+  .singlepainting-description > * {
+    margin: 5px;
+  }
+  
+  .bigcover {
+    max-width: fit-content;
+    margin: 10px;
+    border: 4px solid #f4b41a;
+    border-radius: 8px;
+  }
+  
+  .singlepainting-additional {
+    margin: 10px;
+    max-width: 50%;
+  }
+  
+  .additionalcover {
+    max-width: 100%;
+    margin-top: 10px;
+  }
+  
+  @media (max-width: 768px) {
+    .singlepainting-description,
+    .singlepainting-additional {
+      max-width: 100%;
+    }
+  }

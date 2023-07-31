@@ -1,0 +1,50 @@
+
+footer {  
+    background-color: #143d59;
+    border-top: #f4b41a 3px solid;
+    height: 250px; 
+    color: #f4b41a;
+   
+  }
+  
+  div.footer-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 15px;
+  }
+  
+  footer img {
+    max-height: 50px;
+    background-color: #f4b41a;
+  }
+  
+  footer img:hover {
+    background-color: white;
+    transition: 0.3s ease;
+  }
+  
+  .personaldata-link {
+    color: #f4b41a;
+    text-decoration: none;
+  }
+  
+  .personaldata-link:hover {
+    color: rgb(226, 226, 226);
+    transition: .3s ease;
+  }
+  
+  @media (max-width: 768px) {
+    div.footer-content {
+     flex-direction: column;
+     align-items: center;
+     gap: 12px;
+     margin-top: 12px;
+    }
+  }
+  
+  article.personaldata > h2, h3, p{
+    /*h2 h3 p*/
+    padding: 15px;
+    max-width: 90%;
+  }

@@ -10,13 +10,16 @@ const Login = () => {
   const URL = useSelector(selectUrl);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [loged, setLoged] = useState(false);
+  const [userRole, setUserRole] = useState("user");
+  const [logged, setLogged] = useState(false);
   const [wrongCredentials, setWrongCredentials] = useState(false);
   const dispatch = useDispatch();
   const { setUserInfo } = useContext(UserContext);
 
   const login = async (e) => {
     e.preventDefault();
+
+    try{
     const response = await fetch(URL + "login", {
       method: "POST",
       body: JSON.stringify({ name, password }),
@@ -30,16 +33,22 @@ const Login = () => {
         .then(
           (userinfo) => (
             dispatch(saveUsersName(userinfo.name)),
+            setUserRole(userinfo.role),
             Cookies.set("token", userinfo.token, { expires: 30 })
           )
-        );
-      setLoged(true);
+        );        
+        setLogged(true);
     } else if (response.status === 400) {
       setWrongCredentials(true);
     } else {
       console.log("internal error");
     }
+  } catch(err){
+    console.log('error during login:', err)
+  }
   };
+
+ 
 
   if (wrongCredentials) {
     setTimeout(() => {
@@ -47,7 +56,12 @@ const Login = () => {
     }, 4000);
   }
 
-  if (loged) return <Navigate to="/" />;
+  if (logged){
+    if(userRole === "admin"){
+      window.location.reload()
+    }else{
+    return <Navigate to="/" />}
+  };
 
   return (
     <div className="login-page">

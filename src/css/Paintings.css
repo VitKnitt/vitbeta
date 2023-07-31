@@ -1,0 +1,84 @@
+
+.paintins-page {
+    padding-top: 10px;
+  }
+  
+  div.filtr {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    max-width: fit-content;
+    margin: 0px 10px 5px 65px;
+    padding: 10px;
+    border: 4px solid #f4b41a;
+    border-radius: 8px;
+  }
+  
+  div.filtr div.filtrDate {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  button.arrowDown,
+  button.arrowUp {
+    padding: 0 7px 0 7px;
+    font-size: 25px;
+  }
+  
+  div.download {
+    margin: 0px 10px 5px 65px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    align-items: center;
+    max-width: 800px;
+  }
+  
+  div.paintings {
+    margin: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 800px;
+  }
+  
+  div.paintings img {
+    max-width: 95%;
+    border: 8px solid #f4b41a;
+    border-radius: 8px;
+    margin: 10px;
+  }
+  
+  div.paintings div.description {
+    max-width: 350px;
+    margin-left: 55px;
+  }
+  
+  div.paintings div.description > * {
+    margin: 10px;
+    color: black;
+  }
+  
+  @media (max-width: 768px) {
+    div.paintings {
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid #f4b41a;
+      margin-bottom: 15px;
+      max-width: 95%;
+    }
+  
+    div.paintings div.description {
+      margin-left: 10px;
+    }
+  
+    div.filtr {
+      margin-left: 10px;
+    }
+  
+    div.download {
+      flex-direction: column;
+    }
+  }

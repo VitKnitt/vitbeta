@@ -1,4 +1,13 @@
-import "./App.css";
+//import "./css/App.css";
+import "./css/Blog.css";
+import "./css/Books.css";
+import "./css/Footer.css";
+import "./css/Forms.css";
+import "./css/General.css";
+import "./css/Header.css";
+import "./css/IndexPage.css";
+import "./css/Paintings.css";
+import "./css/SinglePainting.css";
 import { Route, Routes } from "react-router-dom";
 import Blog from "./pages/Blog";
 import PostBlog from "./pages/PostBlog";

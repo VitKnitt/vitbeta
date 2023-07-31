@@ -1,0 +1,45 @@
+
+div.books {
+    padding-top: 10px;
+  }
+  
+  div.books div.book {
+    margin: 0px 8px 8px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  div.books img{
+    border: #143d59 5px solid;
+    border-radius: 3px;
+    height: 100%;
+    width: auto;
+    margin: 10px;
+  }
+  
+  div.books iframe {
+    width: 60%;
+  }
+  
+  div.descriptionbook {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    gap: 50px;
+  }
+  
+  div.books div {
+    margin-top: 50px;
+  }
+  
+  @media (max-width: 768px) {
+    div.descriptionbook {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    div.books img {
+      max-width: 97%;
+    }
+  }
