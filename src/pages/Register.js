@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { selectUrl } from "../features/url/urlSlice";
 
 const Register = () => {
-  const URL = useSelector(selectUrl)
+  const URL = useSelector(selectUrl);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,25 +37,28 @@ const Register = () => {
           setMatchPassword(false);
         }, 4000)
       );
-
-    const result = await fetch(URL+"register", {
-      method: "POST",
-      body: JSON.stringify({ name, password, email }),
-      headers: { "Content-type": "application/json" },
-    });
-    if (result.status === 201) {
-      setSuccess(true);
-    } else if (result.status === 409) {
-      setDuplicateName(true);
-      setTimeout(() => {
-        setDuplicateName(false);
-      }, 4000);
-    } else {
-      console.log(result);
-      setMatchPassword(true);
-      setTimeout(() => {
-        setMatchPassword(false);
-      }, 4000);
+    try {
+      const result = await fetch(URL + "register", {
+        method: "POST",
+        body: JSON.stringify({ name, password, email }),
+        headers: { "Content-type": "application/json" },
+      });
+      if (result.status === 201) {
+        setSuccess(true);
+      } else if (result.status === 409) {
+        setDuplicateName(true);
+        setTimeout(() => {
+          setDuplicateName(false);
+        }, 4000);
+      } else {
+        console.log(result);
+        setMatchPassword(true);
+        setTimeout(() => {
+          setMatchPassword(false);
+        }, 4000);
+      }
+    } catch (err) {
+      console.log("internal error during fetch:" + err);
     }
   };
 
@@ -94,13 +97,11 @@ const Register = () => {
         <h2>password:</h2>
         <p>
           min délka 6{" "}
-          {!regexPassword.test(password) ? 
-          (
+          {!regexPassword.test(password) ? (
             <FontAwesomeIcon icon={faXmark} style={{ color: "#e0101a" }} />
           ) : (
             <FontAwesomeIcon icon={faCheck} style={{ color: "#143d59" }} />
-          )
-          }
+          )}
         </p>
         <input
           type="password"

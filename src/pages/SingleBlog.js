@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUrl } from "../features/url/urlSlice";
-import loading from "../images/loading.gif"
+import loading from "../images/loading.gif";
 import Cookies from "js-cookie";
 
 const SingleBlog = () => {
-  const URL = useSelector(selectUrl)
+  const URL = useSelector(selectUrl);
   const [postsData, setPostsData] = useState("");
   const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState([]);
@@ -14,26 +14,30 @@ const SingleBlog = () => {
   const [regRequired, setregRequired] = useState(false);
   const id = useParams("");
   const history = useNavigate();
-  const token = useSelector(state => state.users.cookie)
+  const token = useSelector((state) => state.users.cookie);
 
   const handleInsertNewComment = async (e) => {
     e.preventDefault();
-    const result = await fetch(URL+"postcomment", {
-      method: "POST",
-      body: JSON.stringify([{ newComment }, id, token]),
-      credentials: "include",
-      headers: { "Content-type": "application/json" },
-    }).catch((err) => console.log(err));
-    if (result.status === 401) {
-      setregRequired(true);
-      console.log("nezaregistrovan");
+    try {
+      const result = await fetch(URL + "postcomment", {
+        method: "POST",
+        body: JSON.stringify([{ newComment }, id, token]),
+        credentials: "include",
+        headers: { "Content-type": "application/json" },
+      });
+      if (result.status === 401) {
+        setregRequired(true);
+        console.log("nezaregistrovan");
+      }
+      if (result.status === 403) {
+        setLimitComments(true);
+        console.log("limmit překročen");
+      }
+      setComments(result);
+      setNewComment("");
+    } catch (err) {
+      console.log("internal error during fetch:" + err);
     }
-    if (result.status === 403) {
-      setLimitComments(true);
-      console.log("limmit překročen");
-    }
-    setComments(result);
-    setNewComment("");
   };
 
   if (limitComments) {
@@ -50,18 +54,27 @@ const SingleBlog = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const result = await fetch(URL+"getsinglepost", {
-        method: "POST",
-        body: JSON.stringify(id),
-        headers: { "Content-type": "application/json" },
-      }).catch((err) => console.log(err));
-      result.json().then((post) => setPostsData(post));
+      try {
+        const result = await fetch(URL + "getsinglepost", {
+          method: "POST",
+          body: JSON.stringify(id),
+          headers: { "Content-type": "application/json" },
+        });
+        result.json().then((post) => setPostsData(post));
+      } catch (err) {
+        console.log("internal error during fetch:" + err);
+      }
     };
     getData();
   }, [comments]);
 
-  if(!postsData){
-    return <div className="loading"><img src={loading} alt="Loading..." />Loading...</div>
+  if (!postsData) {
+    return (
+      <div className="loading">
+        <img src={loading} alt="Loading..." />
+        Loading...
+      </div>
+    );
   }
 
   return (
@@ -69,13 +82,12 @@ const SingleBlog = () => {
       <h1>Blog</h1>
       <div className="articles">
         <div className="article">
-          <img
-            src={URL + postsData.picture}
-            alt="picture"
-          />
+          <img src={URL + postsData.picture} alt="picture" />
           <h2>{postsData.title}</h2>
           <article>{postsData.text}</article>
-          <button className="backbutton" onClick={() => history("/blog")}>zpět</button>
+          <button className="backbutton" onClick={() => history("/blog")}>
+            zpět
+          </button>
         </div>
       </div>
       <div className="comments">

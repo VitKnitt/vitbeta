@@ -9,12 +9,16 @@ const IndexPage = () => {
   //loading database on background
   useEffect(() => {
     const loadDatabase = async () => {
+      try{
       const response = await fetch(URL + "getpaintings");
       if (response.status === 200) {
         console.log("loaded");
       } else {
         console.log("internal error");
       }
+    }catch(err){
+      console.log('internal error during fetch:' + err)
+    }
     };
     loadDatabase();
   }, []);
@@ -23,7 +27,7 @@ const IndexPage = () => {
     <div className="indexPage">
       <div className="news">
         <h2>novinky</h2>
-        {/*<iframe
+        <iframe
           width="560"
           height="315"
           src="https://www.youtube.com/embed/RtxFRHTuhHM"
@@ -31,7 +35,7 @@ const IndexPage = () => {
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen
-  ></iframe>*/}
+  ></iframe>
       </div>
       <div className="events">
         <h2>události</h2>

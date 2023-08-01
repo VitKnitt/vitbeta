@@ -23,19 +23,23 @@ const Paintings = () => {
 
   useEffect(() => {
     const showData = async () => {
-      const response = await fetch(URL + "getpaintings");
-      response
-        .json()
-        .then((response) =>
-          filter
-            ? setPaintData(response.filter((title) => title.serie === filter))
-            : setPaintData(response)
-        )
-        .catch((err) => console.log(err));
-      if (response.status === 200) {
-        console.log("paintings loaded");
-      } else {
-        console.log("internal error");
+      try {
+        const response = await fetch(URL + "getpaintings");
+        response
+          .json()
+          .then((response) =>
+            filter
+              ? setPaintData(response.filter((title) => title.serie === filter))
+              : setPaintData(response)
+          )
+          .catch((err) => console.log(err));
+        if (response.status === 200) {
+          console.log("paintings loaded");
+        } else {
+          console.log("internal error");
+        }
+      } catch (err) {
+        console.log("internall error during fetch:" + err);
       }
     };
 
@@ -50,18 +54,22 @@ const Paintings = () => {
   }, [filterYear]);
 
   const handleDownloaad = async () => {
-    const response = await fetch(URL + "downloadpaintings", {
-      method: "POST",
-      body: JSON.stringify({ token }),
-      headers: { "Content-type": "application/json" },
-      credentials: "include",
-    }).catch((err) => console.log(err));
+    try {
+      const response = await fetch(URL + "downloadpaintings", {
+        method: "POST",
+        body: JSON.stringify({ token }),
+        headers: { "Content-type": "application/json" },
+        credentials: "include",
+      });
 
-    if (response.status === 200) {
-      window.open(URL + "downloadpaintings");
-      console.log("file downloaded");
-    } else {
-      console.log("internal error");
+      if (response.status === 200) {
+        window.open(URL + "downloadpaintings");
+        console.log("file downloaded");
+      } else {
+        console.log("internal error");
+      }
+    } catch (err) {
+      console.log("internal error during fetch:" + err);
     }
   };
 

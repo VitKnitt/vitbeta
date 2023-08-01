@@ -10,12 +10,12 @@ const ForgotPassword = () => {
 
   const handleSend = async (e) => {
     e.preventDefault();
-
+try{
     const result = await fetch(URL + "forgotpassword", {
       method: "POST",
       body: JSON.stringify({ email }),
       headers: { "Content-type": "application/json" },
-    }).catch((err) => console.log(err));
+    });
 
     if (result.ok) {
       setEmailSent(true);
@@ -25,6 +25,9 @@ const ForgotPassword = () => {
       setNoMatch(true);
       console.log("wrong email or internal error");
     }
+  }catch(err){
+    console.log('internall error during fetch:' + err)
+  }
   };
 
   if (emailSent) {

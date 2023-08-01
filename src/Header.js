@@ -21,22 +21,26 @@ const Header = () => {
 
   useEffect(() => {
     const isLooged = async () => {
-      const result = await fetch(URL + "islogged", {
-        method: "POST",
-        body: JSON.stringify({ token }),
-        headers: { "Content-type": "application/json" },
-        credentials: "include",
-      });
-      if (result.ok) {
-        result
-          .json()
-          .then(
-            (result) => (
-              dispatch(saveUsersName(result.name)), setUseRole(result.role)
-            )
-          );
-      } else {
-        console.log("not logged in");
+      try {
+        const result = await fetch(URL + "islogged", {
+          method: "POST",
+          body: JSON.stringify({ token }),
+          headers: { "Content-type": "application/json" },
+          credentials: "include",
+        });
+        if (result.ok) {
+          result
+            .json()
+            .then(
+              (result) => (
+                dispatch(saveUsersName(result.name)), setUseRole(result.role)
+              )
+            );
+        } else {
+          console.log("not logged in");
+        }
+      } catch (err) {
+        console.log("internal error during fetch:" + err);
       }
     };
     isLooged();

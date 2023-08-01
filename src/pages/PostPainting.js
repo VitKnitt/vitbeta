@@ -18,17 +18,21 @@ const PostPainting = () => {
 
   useEffect(() => {
     const checkrole = async () => {
-      const result = await fetch(URL + "checkrole", {
-        method: "POST",
-        body: JSON.stringify({ token }),
-        headers: { "Content-type": "application/json" },
-        credentials: "include",
-      });
-      if (result.status !== 200) {
-        console.log("neautorizovany vstup");
-        setNeautorizovany(true);
-      } else {
-        console.log("welcome");
+      try {
+        const result = await fetch(URL + "checkrole", {
+          method: "POST",
+          body: JSON.stringify({ token }),
+          headers: { "Content-type": "application/json" },
+          credentials: "include",
+        });
+        if (result.status !== 200) {
+          console.log("neautorizovany vstup");
+          setNeautorizovany(true);
+        } else {
+          console.log("welcome");
+        }
+      } catch (err) {
+        console.log("internal error during fetch:" + err);
       }
     };
     checkrole();
@@ -47,15 +51,19 @@ const PostPainting = () => {
     data.set("additionalInfo", additionalInfo);
     data.set("token", token);
 
-    const response = await fetch(URL + "postpainting", {
-      method: "POST",
-      body: data,
-      credentials: "include",
-    });
-    if (response.status === 200) {
-      console.log("painting added to gallery");
-    } else {
-      console.log("internal error");
+    try {
+      const response = await fetch(URL + "postpainting", {
+        method: "POST",
+        body: data,
+        credentials: "include",
+      });
+      if (response.status === 200) {
+        console.log("painting added to gallery");
+      } else {
+        console.log("internal error");
+      }
+    } catch (err) {
+      console.log("internal error during fetch:" + err);
     }
   };
 

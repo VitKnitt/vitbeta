@@ -2,26 +2,30 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUrl } from "../features/url/urlSlice";
-import loading from "../images/loading.gif"
+import loading from "../images/loading.gif";
 
 const SinglePainting = () => {
-  const URL = useSelector(selectUrl)
+  const URL = useSelector(selectUrl);
   const [painting, setPainting] = useState("");
   const id = useParams("");
   const navigate = useNavigate();
 
   useEffect(() => {
     const getSinglePaintingInfo = async () => {
-      const result = await fetch(URL+"getsinglepainting", {
-        method: "POST",
-        body: JSON.stringify(id),
-        headers: { "Content-type": "application/json" },
-      });
-      if(result.status === 201){
-      result.json().then((data) => setPainting(data));
-    }else{
-      console.log('internal error')
-    }
+      try {
+        const result = await fetch(URL + "getsinglepainting", {
+          method: "POST",
+          body: JSON.stringify(id),
+          headers: { "Content-type": "application/json" },
+        });
+        if (result.status === 201) {
+          result.json().then((data) => setPainting(data));
+        } else {
+          console.log("internal error");
+        }
+      } catch (err) {
+        console.log("internal error during fetch:" + err);
+      }
     };
     getSinglePaintingInfo();
   }, []);
@@ -46,11 +50,7 @@ const SinglePainting = () => {
             <h3>{serie && serie}</h3>
             <h3>{year}</h3>
           </div>
-          <img
-            className="bigcover"
-            alt="bigCover"
-            src={URL + bigCover}
-          />
+          <img className="bigcover" alt="bigCover" src={URL + bigCover} />
           <div className="singlepainting-additional">
             <p>{additionalInfo && additionalInfo}</p>
             <div>
@@ -62,11 +62,14 @@ const SinglePainting = () => {
                 />
               )}
             </div>
-          <button onClick={() => navigate('/paintings')}>zpět</button>
+            <button onClick={() => navigate("/paintings")}>zpět</button>
           </div>
         </div>
       ) : (
-        <div className="loading"><img src={loading} alt="Loading..." />Loading...</div>
+        <div className="loading">
+          <img src={loading} alt="Loading..." />
+          Loading...
+        </div>
       )}
     </>
   );

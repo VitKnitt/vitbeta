@@ -14,24 +14,34 @@ const Contact = () => {
   const handleSend = async (e) => {
     e.preventDefault();
     const date = new Date().getFullYear().toString();
-    console.log(date === year);
-    if (date === year) {
+
+    if (date !== year) {
+      setWrongYear(true);
+      return;
+    }
+    try {
       const result = await fetch(URL + "contact", {
         method: "POST",
         body: JSON.stringify({ email, subject, message }),
         headers: { "Content-type": "application/json" },
-      }).catch(err => console.log(err));
+      });
       if (result.status === 200) {
         setEmail("");
         setSubject("");
         setMessage("");
         setYear("");
         setOdeslano(true);
+      } else if (result.status === 400) {
+        console.log("Bad Request: Invalid input data");
+      } else if (result.status === 401) {
+        console.log(
+          "Unauthorized: You are not authorized to perform this action"
+        );
       } else {
-        console.log("neodeslano");
+        console.log("Server Error: Something went wrong on the server");
       }
-    } else {
-      setWrongYear(true);
+    } catch (error) {
+      console.log("Error occurred while sending the request:", error);
     }
   };
 

@@ -11,16 +11,18 @@ const Blog = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const result = await fetch(URL + "getblogposts").catch((err) =>
-        console.log(err)
-      );
-      if(result.status === 200){
-      result.json().then((post) => setPostsData(post.reverse()));
-      }
-      else{
-        console.log('Internal Server Error')
+      try {
+        const result = await fetch(URL + "getblogposts");
+        if (result.status === 200) {
+          result.json().then((post) => setPostsData(post.reverse()));
+        } else {
+          console.log("Internal Server Error");
+        }
+      } catch (err) {
+        console.log("Error occurred while fetching data::" + err);
       }
     };
+
     getData();
   }, []);
 

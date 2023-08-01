@@ -13,17 +13,21 @@ const PostBlog = () => {
 
   useEffect(() => {
     const checkrole = async () => {
-      const result = await fetch(URL + "checkrole", {
-        method: "POST",
-        body: JSON.stringify({ token }),
-        headers: { "Content-type": "application/json" },
-        credentials: "include",
-      });
-      if (result.status === 200) {
-        console.log("welcome");
-      } else {
-        console.log("neautorizovany vstup");
-        setNeautorizovany(true);
+      try {
+        const result = await fetch(URL + "checkrole", {
+          method: "POST",
+          body: JSON.stringify({ token }),
+          headers: { "Content-type": "application/json" },
+          credentials: "include",
+        });
+        if (result.status === 200) {
+          console.log("welcome");
+        } else {
+          console.log("neautorizovany vstup");
+          setNeautorizovany(true);
+        }
+      } catch (err) {
+        console.log("internal error during fetch:" + err);
       }
     };
     checkrole();
@@ -37,15 +41,19 @@ const PostBlog = () => {
     data.set("token", token);
     e.preventDefault();
 
-    const response = await fetch(URL + "postblog", {
-      method: "POST",
-      body: data,
-      credentials: "include",
-    }).catch((err) => console.log(err));
-    if (response.status === 200) {
-      console.log("new blog added");
-    } else {
-      console.log("internal error");
+    try {
+      const response = await fetch(URL + "postblog", {
+        method: "POST",
+        body: data,
+        credentials: "include",
+      });
+      if (response.status === 200) {
+        console.log("new blog added");
+      } else {
+        console.log("internal error");
+      }
+    } catch (err) {
+      console.log("internal error during fetch:" + err);
     }
   };
 
